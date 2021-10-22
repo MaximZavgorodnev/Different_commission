@@ -23,7 +23,7 @@ fun main(){
 
 }
 
-fun calculationCommission(cardType: String, amountOfPreviousTransfersM: Int, transferNow: Int): Double{
+fun calculationCommission(cardType: String = "VK Pay", amountOfPreviousTransfersM: Int = 0, transferNow: Int): Double{
     val minCommission = 35.0 // Минимальная комиссия 35 руб
     val comimssion: Double
     when (cardType){
@@ -34,7 +34,7 @@ fun calculationCommission(cardType: String, amountOfPreviousTransfersM: Int, tra
     return comimssion
 }
 
-fun calculatingTheLimit(cardType: String, amountOfPreviousTransfersM: Int, transferNow: Int): String {
+fun calculatingTheLimit(cardType: String = "VK Pay", amountOfPreviousTransfersM: Int = 0, transferNow: Int): String {
     val limitPerDay = 150000 //Лимит перевода по карте в день
     val limitPerMonth = 600000 // Лимит перевода в месяц
 

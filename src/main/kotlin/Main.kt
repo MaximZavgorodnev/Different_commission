@@ -25,11 +25,10 @@ fun main(){
 
 fun calculationCommission(cardType: String = "VK Pay", amountOfPreviousTransfersM: Int = 0, transferNow: Int): Double{
     val minCommission = 35.0 // Минимальная комиссия 35 руб
-    val comimssion: Double
-    when (cardType){
-        "Masterkard", "Maestro" -> comimssion = if ((amountOfPreviousTransfersM > 300)&&(amountOfPreviousTransfersM < 75000)) 0.0 else ((transferNow * 0.006) + 20)
-        "Visa", "Мир" -> comimssion = if ((transferNow * 0.0075) <= minCommission) minCommission else (transferNow * 0.0075)
-        else -> comimssion = 0.0
+    val comimssion = when (cardType){
+        "Masterkard", "Maestro" -> if ((amountOfPreviousTransfersM > 300)&&(amountOfPreviousTransfersM < 75000)) 0.0 else ((transferNow * 0.006) + 20)
+        "Visa", "Мир" ->  if ((transferNow * 0.0075) <= minCommission) minCommission else (transferNow * 0.0075)
+        else -> 0.0
     }
     return comimssion
 }
@@ -40,11 +39,10 @@ fun calculatingTheLimit(cardType: String = "VK Pay", amountOfPreviousTransfersM:
 
     val limitPerDayVk = 15000 //Лимит перевода по карте в день
     val limitPerMonthVk = 40000 // Лимит перевода в месяц
-    val limit: String
 
-    when(cardType){
-        "VK Pay" -> limit = if ((amountOfPreviousTransfersM <= limitPerMonthVk)&&(transferNow <= limitPerDayVk)) "лимит не привышен" else "лимит привышен"
-        else -> limit = if ((amountOfPreviousTransfersM <= limitPerMonth)&&(transferNow <= limitPerDay)) "лимит не привышен" else "лимит привышен"
+    val limit = when(cardType){
+        "VK Pay" -> if ((amountOfPreviousTransfersM <= limitPerMonthVk)&&(transferNow <= limitPerDayVk)) "лимит не привышен" else "лимит привышен"
+        else -> if ((amountOfPreviousTransfersM <= limitPerMonth)&&(transferNow <= limitPerDay)) "лимит не привышен" else "лимит привышен"
     }
     return limit
 }
